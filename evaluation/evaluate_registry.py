@@ -23,6 +23,7 @@ from kvpress import (
     DecodingPress,
     DuoAttentionPress,
     ExpectedAttentionPress,
+    FastSVDPress,
     FinchPress,
     KeyDiffPress,
     KnormPress,
@@ -33,6 +34,8 @@ from kvpress import (
     RandomPress,
     SnapKVPress,
     StreamingLLMPress,
+    SVDBaselinePress,
+    SVDLowrankPress,
     ThinKPress,
     TOVAPress,
 )
@@ -102,4 +105,8 @@ PRESS_REGISTRY = {
     "decoding_adakv_expected_attention_e2": DecodingPress(base_press=AdaKVPress(ExpectedAttentionPress(epsilon=1e-2))),
     "decoding_adakv_snapkv": DecodingPress(base_press=AdaKVPress(SnapKVPress())),
     "decoding_keydiff": DecodingPress(base_press=KeyDiffPress()),
+    # SVD-based methods
+    "svd": FastSVDPress(),
+    "svd_baseline": SVDBaselinePress(),
+    "svd_lowrank": SVDLowrankPress(),
 }
