@@ -1,0 +1,41 @@
+{
+    "cwe": {
+        "string_match": 90.8
+    },
+    "fwe": {
+        "string_match": 90.2
+    },
+    "niah_multikey_1": {
+        "string_match": 40.2
+    },
+    "niah_multikey_2": {
+        "string_match": 9.4
+    },
+    "niah_multikey_3": {
+        "string_match": 5.2
+    },
+    "niah_multiquery": {
+        "string_match": 37.45
+    },
+    "niah_multivalue": {
+        "string_match": 54.7
+    },
+    "niah_single_1": {
+        "string_match": 100.0
+    },
+    "niah_single_2": {
+        "string_match": 72.4
+    },
+    "niah_single_3": {
+        "string_match": 0.8
+    },
+    "qa_1": {
+        "string_match": 41.8
+    },
+    "qa_2": {
+        "string_match": 45.2
+    },
+    "vt": {
+        "string_match": 99.84
+    }
+}

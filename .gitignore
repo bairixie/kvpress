@@ -1,6 +1,8 @@
 dev_notebooks/
-results/
+/results/
 reports/
+# Allow evaluation/results to be tracked (temporarily)
+!evaluation/results/
 .DS_Store
 uv.lock
 *.parquet

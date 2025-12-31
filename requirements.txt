@@ -1,0 +1,160 @@
+# ============================================================
+# KVPress Virtual Environment Dependencies
+# This file contains the fully tested working environment
+# 
+# Usage:
+#   1. Create virtual environment: python -m venv venv
+#   2. Activate virtual environment: source venv/bin/activate  (Linux/Mac)
+#                                    venv\Scripts\activate      (Windows)
+#   3. Install dependencies: pip install -r requirements.txt
+#
+# Notes:
+#   - Requires CUDA 12.x environment
+#   - flash-attn needs to be compiled from source, may require additional setup
+#   - PyTorch uses nightly version (cu128)
+# ============================================================
+
+# Core ML Framework
+torch==2.11.0.dev20251228+cu128
+--extra-index-url https://download.pytorch.org/whl/nightly/cu128
+
+# Transformers & NLP
+transformers==4.57.3
+tokenizers==0.22.1
+sentencepiece==0.2.1
+huggingface-hub==0.36.0
+safetensors==0.7.0
+
+# Accelerate & Distributed
+accelerate==1.12.0
+
+# Flash Attention (installed from git)
+# If the line below fails, manually run:
+# pip install git+https://github.com/Dao-AILab/flash-attention.git
+flash_attn @ git+https://github.com/Dao-AILab/flash-attention.git@58fe37fba6b07ac0aa6e88a94d68f8378c901028
+
+# Data Processing
+datasets==2.21.0
+pandas==2.3.3
+numpy==2.2.6
+pyarrow==22.0.0
+
+# Scientific Computing
+scipy==1.15.3
+sympy==1.14.0
+einops==0.8.1
+
+# Evaluation Dependencies
+bert-score==0.3.13
+rouge==1.0.1
+nltk==3.9.2
+regex==2025.11.3
+
+# Visualization
+matplotlib==3.10.8
+pillow==12.0.0
+
+# Jupyter/IPython
+ipykernel==7.1.0
+ipython==8.37.0
+jupyter_client==8.7.0
+jupyter_core==5.9.1
+
+# Utilities
+fire==0.6.0
+tqdm==4.67.1
+requests==2.32.5
+cachetools==5.5.2
+PyYAML==6.0.3
+protobuf==5.29.5
+packaging==25.0
+filelock==3.20.1
+joblib==1.5.3
+
+# Async & Networking
+aiohttp==3.13.2
+aiohappyeyeballs==2.6.1
+aiosignal==1.4.0
+frozenlist==1.8.0
+multidict==6.7.0
+propcache==0.4.1
+yarl==1.22.0
+async-timeout==5.0.1
+urllib3==2.6.2
+certifi==2025.11.12
+charset-normalizer==3.4.4
+idna==3.11
+
+# NVIDIA CUDA Libraries
+nvidia-cublas-cu12==12.8.4.1
+nvidia-cuda-cupti-cu12==12.8.90
+nvidia-cuda-nvrtc-cu12==12.8.93
+nvidia-cuda-runtime-cu12==12.8.90
+nvidia-cudnn-cu12==9.10.2.21
+nvidia-cufft-cu12==11.3.3.83
+nvidia-cufile-cu12==1.13.1.3
+nvidia-curand-cu12==10.3.9.90
+nvidia-cusolver-cu12==11.7.3.90
+nvidia-cusparse-cu12==12.5.8.93
+nvidia-cusparselt-cu12==0.7.1
+nvidia-nccl-cu12==2.28.9
+nvidia-nvjitlink-cu12==12.8.93
+nvidia-nvshmem-cu12==3.4.5
+nvidia-nvtx-cu12==12.8.90
+cuda-bindings==12.9.4
+cuda-pathfinder==1.2.2
+
+# Build Tools
+ninja==1.13.0
+triton==3.6.0+git9844da95
+hf-xet==1.2.0
+
+# Misc Dependencies
+attrs==25.4.1
+click==8.3.1
+dill==0.3.8
+fsspec==2024.6.1
+Jinja2==3.1.6
+MarkupSafe==3.0.3
+mpmath==1.3.0
+multiprocess==0.70.16
+networkx==3.4.2
+python-dateutil==2.9.0.post0
+pytz==2025.2
+six==1.17.0
+termcolor==3.2.0
+typing_extensions==4.15.0
+tzdata==2025.3
+xxhash==3.6.0
+
+# IPython/Jupyter support
+asttokens==3.0.1
+comm==0.2.3
+debugpy==1.8.19
+decorator==5.2.1
+exceptiongroup==1.3.1
+executing==2.2.1
+jedi==0.19.2
+matplotlib-inline==0.2.1
+nest-asyncio==1.6.0
+parso==0.8.5
+pexpect==4.9.0
+platformdirs==4.5.1
+prompt_toolkit==3.0.52
+psutil==7.2.0
+ptyprocess==0.7.0
+pure_eval==0.2.3
+Pygments==2.19.2
+pyzmq==27.1.0
+stack-data==0.6.3
+tornado==6.5.4
+traitlets==5.14.3
+wcwidth==0.2.14
+
+# Matplotlib dependencies
+contourpy==1.3.2
+cycler==0.12.1
+fonttools==4.61.1
+kiwisolver==1.4.9
+pyparsing==3.3.1
+
