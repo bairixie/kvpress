@@ -35,6 +35,11 @@ from kvpress.presses.scorer_press import ScorerPress
 from kvpress.presses.simlayerkv_press import SimLayerKVPress
 from kvpress.presses.snapkv_press import SnapKVPress
 from kvpress.presses.streaming_llm_press import StreamingLLMPress
+from kvpress.presses.svd_baseline_press import SVDBaselinePress
+from kvpress.presses.svd_baseline_pos import SVDBaselineKeepPress
+from kvpress.presses.svd_lowrank_press import SVDLowrankPress
+from kvpress.presses.svd_lowran_pos import SVDLowrankKeepPress
+from kvpress.presses.svd_press import FastSVDPress
 from kvpress.presses.think_press import ThinKPress
 from kvpress.presses.tova_press import TOVAPress
 
@@ -79,4 +84,9 @@ __all__ = [
     "CompactorPress",
     "LeverageScorePress",
     "NonCausalAttnPress",
+    "FastSVDPress",
+    "SVDBaselinePress",
+    "SVDBaselineKeepPress",
+    "SVDLowrankPress",
+    "SVDLowrankKeepPress",
 ]

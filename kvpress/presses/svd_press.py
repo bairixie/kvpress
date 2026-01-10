@@ -54,8 +54,8 @@ def _svd_small_fp32(B_fp32):
 
 @torch.no_grad()
 def fast_randomized_svd_for_scoring(
-    x,
-    rank=None,
+    x: torch.Tensor,
+    rank: Optional[int] = None,
     oversample=8,
     n_iter=2,
     chol_reg_eps=1e-4,
@@ -101,11 +101,12 @@ def fast_randomized_svd_for_scoring(
     bs, nh, sl, hd = x.shape
     m, n = sl, nh * hd
     
-    # Determine rank
+    # Determine rank with boundary checks
+    # Ensure rank doesn't exceed matrix dimensions (both m and n)
     if rank is None:
-        k = min(m, n)
+        k = min(m, n)  # Full rank if not specified
     else:
-        k = min(rank, m, n)
+        k = min(rank, m, n)  # Clamp to matrix dimensions
     q = min(k + oversample, n)
 
     # Step 1: Projection + Power iteration with cached Xᵀ
@@ -149,9 +150,16 @@ def fast_randomized_svd_for_scoring(
     # Step 5: Compute U = Q @ U_hat
     U = torch.bmm(Q, U_hat)  # [bs, m, q], BF16
     
+    # CRITICAL: Truncate to requested rank k (not q which includes oversample)
+    # This ensures alignment with baseline and lowrank methods for fair comparison
+    # Without truncation: U has q=k+oversample dimensions
+    # With truncation: U has exactly k dimensions (same as baseline)
+    U = U[:, :, :k]
+    S = S[:, :k]
+    
     # Return U and S in the original shape
-    # U: (bs, sl, q) -> (bs, nh, sl, q)
-    # S: (bs, q) -> (bs, nh, q)
+    # U: (bs, sl, k) - truncated to requested rank
+    # S: (bs, k) - truncated to requested rank
     # Note: We need to handle the reshaping to match num_heads
     
     # Since we flattened nh*hd, we need to be careful here
@@ -290,6 +298,36 @@ class FastSVDPress(ScorerPress):
             oversample=self.oversample,
             n_iter=self.n_iter,
         )
+        
+        # DEBUG: Collect all layer shapes for alignment verification
+        if not hasattr(self, '_layer_shapes'):
+            self._layer_shapes = []
+            self._context_count = 0
+        
+        layer_idx = len(self._layer_shapes)
+        self._layer_shapes.append((tuple(keys.shape), effective_rank, tuple(U.shape), tuple(S.shape)))
+        
+        # Print each layer (only for first context to avoid spam)
+        if self._context_count == 0:
+            print(f"[FastSVD] Layer {layer_idx:2d}: keys={tuple(keys.shape)}, rank={effective_rank}, U={tuple(U.shape)}, S={tuple(S.shape)}")
+        
+        # Print summary after all 32 layers (Llama-3.1-8B has 32 layers)
+        if len(self._layer_shapes) == 32:
+            if self._context_count == 0:
+                unique_U = set(s[2] for s in self._layer_shapes)
+                unique_S = set(s[3] for s in self._layer_shapes)
+                unique_rank = set(s[1] for s in self._layer_shapes)
+                print(f"[FastSVD] ===== SUMMARY (32 layers) =====")
+                print(f"[FastSVD]   Unique U shapes: {unique_U}")
+                print(f"[FastSVD]   Unique S shapes: {unique_S}")
+                print(f"[FastSVD]   Unique ranks: {unique_rank}")
+                if len(unique_U) == 1 and len(unique_S) == 1:
+                    print(f"[FastSVD]   All 32 layers ALIGNED!")
+                else:
+                    print(f"[FastSVD]   WARNING: Layers NOT aligned!")
+                print(f"[FastSVD] ================================")
+            self._layer_shapes = []  # Reset for next context
+            self._context_count += 1
         
         # U shape: (bsz, seq_len, k)
         # S shape: (bsz, k)

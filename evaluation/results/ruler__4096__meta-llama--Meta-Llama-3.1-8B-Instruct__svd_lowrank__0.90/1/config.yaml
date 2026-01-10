@@ -1,0 +1,23 @@
+dataset: ruler
+data_dir: 4096
+model: meta-llama/Meta-Llama-3.1-8B-Instruct
+device: cuda:0
+press_name: svd_lowrank
+compression_ratio: 0.9
+key_channel_compression_ratio: null
+fraction: 1.0
+max_new_tokens: null
+max_context_length: null
+query_aware: false
+needle_depth: null
+compression_interval: null
+target_size: null
+hidden_states_buffer_size: null
+output_dir: ./results
+log_level: INFO
+model_kwargs:
+  attn_implementation: flash_attention_2
+  dtype: auto
+press_init_command: SVDLowrankPress(compression_ratio=0.9, rank=None, niter=2, svd_method='weighted',
+  normalize=True)
+seed: 42

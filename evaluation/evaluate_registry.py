@@ -35,7 +35,9 @@ from kvpress import (
     SnapKVPress,
     StreamingLLMPress,
     SVDBaselinePress,
+    SVDBaselineKeepPress,
     SVDLowrankPress,
+    SVDLowrankKeepPress,
     ThinKPress,
     TOVAPress,
 )
@@ -108,5 +110,7 @@ PRESS_REGISTRY = {
     # SVD-based methods
     "svd": FastSVDPress(),
     "svd_baseline": SVDBaselinePress(),
+    "svd_baseline_keep": SVDBaselineKeepPress(),
     "svd_lowrank": SVDLowrankPress(),
+    "svd_lowrank_keep": SVDLowrankKeepPress(),
 }
