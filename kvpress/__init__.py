@@ -40,6 +40,7 @@ from kvpress.presses.scorer_press import ScorerPress
 from kvpress.presses.simlayerkv_press import SimLayerKVPress
 from kvpress.presses.snapkv_press import SnapKVPress
 from kvpress.presses.streaming_llm_press import StreamingLLMPress
+from kvpress.presses.svd_press import FastSVDPress
 from kvpress.presses.think_press import ThinKPress
 from kvpress.presses.tova_press import TOVAPress
 
@@ -87,4 +88,5 @@ __all__ = [
     "DMSPress",
     "FastKVzipPress",
     "KVComposePress",
+    "FastSVDPress",
 ]

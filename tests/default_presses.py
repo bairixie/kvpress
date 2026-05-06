@@ -10,6 +10,7 @@ from kvpress import (
     ExpectedAttentionPress,
     ExpectedAttentionStatsPress,
     FastKVzipPress,
+    FastSVDPress,
     KeyDiffPress,
     KnormPress,
     KVComposePress,
@@ -113,6 +114,7 @@ default_presses = [
         "kwargs": [{"compression_ratio": 0.5, "layerwise": False}, {"compression_ratio": 0.8, "layerwise": True}],
     },
     {"cls": TestFastKVzipPress, "kwargs": [{"compression_ratio": 0.2}, {"compression_ratio": 0.8}]},
+    {"cls": FastSVDPress, "kwargs": [{"compression_ratio": 0.2, "rank": 8}, {"compression_ratio": 0.8, "rank": 8}]},
     {"cls": CURPress, "kwargs": [{"compression_ratio": 0.2}, {"compression_ratio": 0.8}]},
     {"cls": TestKVzapPress, "kwargs": [{"compression_ratio": 0.2}, {"compression_ratio": 0.8}]},
     {
